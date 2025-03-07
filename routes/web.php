@@ -1,19 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('landing-page.index');
-})->name('home');
+    return view('welcome');
+});
 
-Route::get('/contact', function () {
-    return view('landing-page.contact');
-})->name('contact');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/price', function () {
-    return view('landing-page.price');
-})->name('price');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/about', function () {
-    return view('landing-page.about');
-})->name('about');
+require __DIR__.'/auth.php';
