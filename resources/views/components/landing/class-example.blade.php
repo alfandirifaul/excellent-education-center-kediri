@@ -13,11 +13,12 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="z-blogs mb-30 wow fadeInUp2 animated" data-wow-delay='.1s'>
                         <div class="z-blogs__thumb mb-30">
-                        <a href=""><img src={{ asset("img/blog/math.png") }} alt="blog-img"></a>
+                            <a href=""><img src={{ asset("img/blog/math.png") }} alt="blog-img"></a>
                         </div>
                         <div class="z-blogs__content">
                             <h5 class="mb-25">Matematika</h5>
-                            <h4 class="sub-title mb-15"><a href="blog-details.html">Berbagai Tips dan Cara Berhitung Cepat dan Mudah</a></h4>
+                            <h4 class="sub-title mb-15"><a href="">Berbagai Tips dan Cara Berhitung Cepat dan Mudah</a>
+                            </h4>
                             <div class="z-blogs__meta d-sm-flex justify-content-between pt-20">
                                 <span>Update : 28 Februari 2025</span>
                                 <span>By EEC Guru</span>
@@ -28,11 +29,12 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="z-blogs mb-30 wow fadeInUp2 animated" data-wow-delay='.2s'>
                         <div class="z-blogs__thumb mb-30">
-                        <a href=""><img src={{ asset("img/blog/fisika.png") }} alt="blog-img"></a>
+                            <a href=""><img src={{ asset("img/blog/fisika.png") }} alt="blog-img"></a>
                         </div>
                         <div class="z-blogs__content">
                             <h5 class="mb-25">Fisika</h5>
-                            <h4 class="sub-title mb-15"><a href="blog-details.html">Memecahkan Misteri Hukum Newton dalam Kehidupan Sehari-hari</a></h4>
+                            <h4 class="sub-title mb-15"><a href="">Memecahkan Misteri Hukum Newton dalam Kehidupan
+                                    Sehari-hari</a></h4>
                             <div class="z-blogs__meta d-sm-flex justify-content-between pt-20">
                                 <span>Update : 28 Februari 2025</span>
                                 <span>By EEC Guru</span>
@@ -43,11 +45,12 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="z-blogs mb-30 wow fadeInUp2 animated" data-wow-delay='.3s'>
                         <div class="z-blogs__thumb mb-30">
-                        <a href=""><img src={{ asset("img/blog/bio.png") }} alt="blog-img"></a>
+                            <a href=""><img src={{ asset("img/blog/bio.png") }} alt="blog-img"></a>
                         </div>
                         <div class="z-blogs__content">
                             <h5 class="mb-25">Biologi</h5>
-                            <h4 class="sub-title mb-15"><a href="">Menjelajahi Rahasia DNA: Dasar Kehidupan Makhluk Hidup</a></h4>
+                            <h4 class="sub-title mb-15"><a href="">Menjelajahi Rahasia DNA: Dasar Kehidupan Makhluk
+                                    Hidup</a></h4>
                             <div class="z-blogs__meta d-sm-flex justify-content-between pt-20">
                                 <span>Update : 28 Februari 2025</span>
                                 <span>By EEC Guru</span>
@@ -58,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center mt-20 mb-30 wow fadeInUp2 animated" data-wow-delay='.4s'>
-                    <a href="{{ route('price') }}" class="theme_btn">Lebih Lengkap</a>
+                    <a href="{{ route('login') }}" class="theme_btn">Lebih Lengkap</a>
                 </div>
             </div>
         </div>
