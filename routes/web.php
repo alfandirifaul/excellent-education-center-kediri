@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SystemController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+
 
 Route::prefix('')->group(function () {
     Route::get('/', function () {
@@ -21,6 +24,8 @@ Route::prefix('')->group(function () {
     })->name('about');
 });
 
+Route::get('/class', [SystemController::class, 'dashboardClass'])->name('class');
+Route::post('/class', [PaymentController::class, 'createCharge'])->name('class.charge');
 
 
 Route::get('/dashboard', function () {

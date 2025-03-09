@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('payment_type');
-            $table->string('payment_status');
             $table->string('payment_amount');
             $table->string('payment_token');
             $table->string('payment_proof');
-            $table->dateTime('expired_at');
+            $table->boolean('payment_status');
+            $table->enum('payment_type', ['monthly', 'yearly']);
+            $table->dateTime('payment_start_date');
 
             $table->timestamps();
         });

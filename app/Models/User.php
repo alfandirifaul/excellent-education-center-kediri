@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -81,6 +82,32 @@ class User extends Authenticatable
     public function siswa(): HasOne
     {
         return $this->hasOne(Siswa::class);
+    }
+
+    public function hasActiveSubscription()
+    {
+        $latestSubscription = $this->subscriptionTransactions()
+            ->where('payment_status', true)
+            ->latest('updated_at')
+            ->first();
+
+        $subcrptionEndDate = '';
+
+        if (!$latestSubscription) {
+            return false;
+        }
+
+        if ($latestSubscription->payment_type == 'monthly') {
+            $subcrptionEndDate = Carbon::parse($latestSubscription->payment_start_date)->addMonth(1);
+        } else {
+            $subcrptionEndDate = Carbon::parse($latestSubscription->payment_start_date)->addYear(1);
+        }
+
+        if (!$latestSubscription) {
+            return false;
+        }
+
+        return Carbon::now()->lessThanOrEqualTo($subcrptionEndDate);
     }
 
 }
