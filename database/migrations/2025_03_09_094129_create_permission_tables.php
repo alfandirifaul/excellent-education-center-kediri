@@ -104,6 +104,7 @@ return new class extends Migration
 
             $table->foreign($pivotPermission)
                 ->references('id') // permission id
+                ->on($tableNames['permissions'])
                 ->onDelete('cascade');
 
             $table->foreign($pivotRole)
