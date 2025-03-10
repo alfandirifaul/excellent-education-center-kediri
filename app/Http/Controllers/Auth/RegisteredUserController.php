@@ -33,18 +33,36 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'photo' => ['nullable', 'image', 'max:1024', 'mimes:png,jpg,jpeg'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'photo' => $photoPath,
+            ]);
+        }
+        else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        if(Auth::check()) {
+            if(Auth::user()->hasRole('siswa')) {
+                return redirect(route('siswa-dashboard', absolute: false));
+            }
+            return redirect(route('dashboard', absolute: false));
+        }
+        // return redirect(route('dashboard', absolute: false));
     }
 }
