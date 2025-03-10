@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Kelas extends Model
 {
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama', 'logo'];
 
     /**
      * Get the related siswa
@@ -28,5 +29,10 @@ class Kelas extends Model
     public function getSlugAttribute()
     {
         return Str::slug($this->nama);
+    }
+
+    public function price(): BelongsTo
+    {
+        return $this->belongsTo(Pricing::class);
     }
 }

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelas', function (Blueprint $table) {
+        Schema::create('pricings', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nama')->enum('SD', 'SMP', 'SMA');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->enum('tipe', ['monthly', 'yearly']);
+            $table->bigInteger('pr/ice');
 
             $table->timestamps();
         });
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists('pricings');
     }
 };

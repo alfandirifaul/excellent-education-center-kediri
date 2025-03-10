@@ -110,4 +110,9 @@ class User extends Authenticatable
         return Carbon::now()->lessThanOrEqualTo($subcrptionEndDate);
     }
 
+    public function getImgUrl()
+    {
+        return $this->photo ? asset('storage/' . $this->photo) : asset('img/logo/user-placeholder.png');
+    }
+
 }

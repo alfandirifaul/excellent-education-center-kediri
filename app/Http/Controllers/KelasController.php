@@ -12,7 +12,13 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
+        $kelas = Kelas::with('siswas')->get();
+
+        $jumlahSiswa = $kelas->sum(function ($kelas) {
+            return $kelas->siswas->count();
+        });
+
+        return view('kelas.index', compact('kelas', 'jumlahSiswa'));
     }
 
     /**

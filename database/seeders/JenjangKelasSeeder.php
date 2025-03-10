@@ -19,10 +19,18 @@ class JenjangKelasSeeder extends Seeder
             'SMA'
         ];
 
-        foreach ($classLevel as $level) {
+        $logo = [
+            'img/logo/logo-sd.jpg',
+            'img/logo/logo-smp.jpg',
+            'img/logo/logo-sma.jpg'
+        ];
+
+        foreach ($classLevel as $index => $level) {
             Kelas::create([
-                'nama' => $level
+                'nama' => $level,
+                'logo' => $logo[$index]
             ]);
         }
+
     }
 }

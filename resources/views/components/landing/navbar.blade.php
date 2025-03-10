@@ -34,7 +34,7 @@
                 <div class="right-btn mr-25 mr-xs-15">
                     <ul class="d-flex align-items-center">
                         @auth
-                            <li><a href={{ route('dashboard') }} class="theme_btn free_btn">Dashboard</a></li>
+                            <li><a href={{ route('siswa-dashboard') }} class="theme_btn free_btn">Dashboard</a></li>
                         @else
                             <li><a href={{ route('login') }} class="theme_btn free_btn hover:border_btn">Masuk</a></li>
                             <li><a href={{ route('register') }} class="free_btn border_btn theme_btn ml-10">Daftar</a></li>

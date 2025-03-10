@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Materi extends Model
 {
-    protected $table = 'materi';
+    protected $table = 'materis';
 
     protected $fillable = [
         'kategori_id',

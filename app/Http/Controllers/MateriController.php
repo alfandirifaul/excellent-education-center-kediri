@@ -12,7 +12,9 @@ class MateriController extends Controller
      */
     public function index()
     {
-        //
+        $materi = Materi::all();
+
+        return view('materi.index', compact('materi'));
     }
 
     /**
@@ -20,7 +22,7 @@ class MateriController extends Controller
      */
     public function create()
     {
-        //
+        return view('materi.create');
     }
 
     /**
@@ -28,7 +30,7 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

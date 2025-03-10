@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Siswa extends Model
 {
-    protected $fillable = ['nama', 'user_id'];
+    protected $guarded = ['id'];
 
     /**
      * Get related user
@@ -17,5 +17,10 @@ class Siswa extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kelas(): BelongsTo
+    {
+        return $this->belongsTo(Kelas::class);
     }
 }
