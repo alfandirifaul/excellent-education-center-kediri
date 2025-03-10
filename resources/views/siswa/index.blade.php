@@ -20,7 +20,7 @@
                                 alt="" class="rounded-full object-cover w-[90px] h-[90px]">
                             <div class="flex flex-col">
                                 <h3 class="text-indigo-950 text-xl font-bold">{{ $std->name }}</h3>
-                                <p class="text-slate-500 text-sm">{{ $std->siswa->kelas_id ?? 'Belum punya kelas' }}</p>
+                                <p class="text-slate-500 text-sm">{{ $std->siswa->kelas_id ? $std->siswa->kelas->nama : 'Belum punya kelas' }}</p>
                             </div>
                         </div>
                         <div class="flex flex-col flex-shrink-0 w-[200px]">

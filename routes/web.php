@@ -14,6 +14,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KuisController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PricingController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaDashboardController;
 use App\Http\Controllers\SubscriptionTransactionController;
@@ -35,7 +36,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'role:guru|owner'])->name('dashboard');
 
 
-Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware('auth')->group(function(){
+Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth', 'role:siswa'])->group(function(){
     Route::get('/', [DashboardController::class, 'index'])
         ->middleware(['role:siswa'])
         ->name('index');
@@ -78,7 +79,10 @@ Route::middleware('auth')->group(function () {
             ->middleware('role:owner|guru');
         Route::resource('kategori', KategoriController::class)
             ->middleware('role:owner|guru');
+        Route::resource('pricing', PricingController::class)
+            ->middleware('role:owner|guru');
 
+        // START Kategori
         Route::get('/kategori/create', [KategoriController::class, 'create'])
             ->name('kategori.create');
         Route::post('/kategori/create', [KategoriController::class, 'store'])
@@ -89,6 +93,15 @@ Route::middleware('auth')->group(function () {
             ->name('kategori.update');
         Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])
             ->name('kategori.delete');
+        // END Kategori
+
+        // // START Kelas
+        // Route::get('/kelas/{kelas}/edit', [KelasController::class, 'edit'])
+        //     ->name('kelas.edit');
+        // Route::put('/kelas/{kelas}', [KelasController::class, 'update'])
+        //     ->name('kelas.update');
+        // Route::get('/kelas/{kelas}/show', [KelasController::class, 'show'])
+        //     ->name('kelas.show');
 
     });
 });

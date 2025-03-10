@@ -51,7 +51,7 @@
                                     <a href="#"
                                         class="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                         <span class="text-2xl text-primary-600 d-flex"><i class="ph ph-gear"></i></span>
-                                        <span class="text">Account Settings</span>
+                                        <span class="text">Pengaturan Akun</span>
                                     </a>
                                 </li>
                                 <li class="mb-4">

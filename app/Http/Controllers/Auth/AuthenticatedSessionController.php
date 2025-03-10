@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
         if($user->hasRole('siswa')) {
-            return redirect()->intended(route('siswa-dashboard', absolute: false));
+            return redirect()->intended(route('siswa-dashboard.index', absolute: false));
         }
 
         return redirect()->intended(route('dashboard', absolute: false));

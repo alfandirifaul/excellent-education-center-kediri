@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
 
         if(Auth::check()) {
             if(Auth::user()->hasRole('siswa')) {
-                return redirect(route('siswa-dashboard', absolute: false));
+                return redirect(route('siswa-dashboard.index', absolute: false));
             }
             return redirect(route('dashboard', absolute: false));
         }

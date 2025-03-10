@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Kelas extends Model
 {
-    protected $fillable = ['nama', 'logo'];
+    protected $guarded = ['id'];
 
     /**
      * Get the related siswa
@@ -31,8 +32,8 @@ class Kelas extends Model
         return Str::slug($this->nama);
     }
 
-    public function price(): BelongsTo
+    public function price(): HasOne
     {
-        return $this->belongsTo(Pricing::class);
+        return $this->hasOne(Pricing::class);
     }
 }

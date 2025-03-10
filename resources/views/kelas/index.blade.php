@@ -12,11 +12,10 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
 
                 @if (session('success'))
-                    <div class="py-3 w-full rounded-3xl bg-green-500 text-white">
+                    <div class="py-3 p-4 w-full rounded-3xl bg-green-500 text-white">
                         {{ session('success') }}
                     </div>
                 @endif
-
 
                 @forelse ($kelas as $k)
                     <div class="item-card flex flex-col md:flex-row justify-between items-center gap-y-3 md:gap-y-0">
@@ -28,12 +27,27 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center md:items-start">
+                            <p class="text-slate-500 text-sm">Bulanan</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">
+                                {{ $k->price ? \App\Models\Pricing::formatRupiah($k->price->price_monthly) : 'N/A' }}
+                            </h3>
+                        </div>
+                        <div class="flex flex-col items-center md:items-start">
+                            <p class="text-slate-500 text-sm">Tahunan</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">
+                                {{ $k->price ? \App\Models\Pricing::formatRupiah($k->price->price_yearly) : 'N/A' }}
+                            </h3>
+                        </div>
+                        <div class="flex flex-col items-center md:items-start">
                             <p class="text-slate-500 text-sm">Jumlah siswa</p>
                             <h3 class="text-indigo-950 text-xl font-bold">{{ $k->siswas->count() }}</h3>
                         </div>
                         <div class="flex flex-row items-center gap-x-3">
-                            <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                            <a href="{{ route('admin.kelas.show', $k) }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                                 View
+                            </a>
+                            <a href="{{ route('admin.kelas.edit', $k->id) }}" class="font-bold py-4 px-6 bg-cyan-700 text-white rounded-full">
+                                Edit
                             </a>
                         </div>
                     </div>
