@@ -46,6 +46,9 @@ Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth', 
     Route::put('/settings/{user}', [DashboardController::class, 'settingSiswaUpdate'])
         ->middleware(['role:siswa'])
         ->name('settings.update');
+    Route::get('/price', [DashboardController::class, 'priceSiswaDashboard'])
+        ->middleware(['role:siswa'])
+        ->name('price');
 
 });
 

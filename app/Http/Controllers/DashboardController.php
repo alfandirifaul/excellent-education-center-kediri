@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\Kelas;
+use App\Models\Pricing;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,5 +66,13 @@ class DashboardController extends Controller
 
         return redirect()->route('siswa-dashboard.settings')
             ->with('success', 'Profil berhasil diperbarui');
+    }
+
+    public function priceSiswaDashboard()
+    {
+        $kelas = Kelas::all();
+        $price = Pricing::all();
+
+        return view('siswa-dashboard.price.index', compact('kelas', 'price'));
     }
 }
