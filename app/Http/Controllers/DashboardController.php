@@ -17,9 +17,11 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $kelas = Kelas::all();
+        $price = Pricing::all();
 
         if ($user->hasRole('siswa')) {
-            return view('siswa-dashboard.index', compact('user'));
+            return view('siswa-dashboard.index', compact('user', 'kelas', 'price'));
         }
         else {
             return view('dashboard', compact('kelas'));
@@ -72,7 +74,8 @@ class DashboardController extends Controller
     {
         $kelas = Kelas::all();
         $price = Pricing::all();
+        $user = Auth::user();
 
-        return view('siswa-dashboard.price.index', compact('kelas', 'price'));
+        return view('siswa-dashboard.price.index', compact('kelas', 'price', 'user'));
     }
 }

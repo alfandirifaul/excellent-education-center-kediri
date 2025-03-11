@@ -66,10 +66,10 @@
                                 data-bs-target="#pills-password" type="button" role="tab"
                                 aria-controls="pills-password" aria-selected="false">Password</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        {{-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-plan-tab" data-bs-toggle="pill" data-bs-target="#pills-plan"
                                 type="button" role="tab" aria-controls="pills-plan" aria-selected="false">Plan</button>
-                        </li>
+                        </li> --}}
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing"
@@ -287,7 +287,7 @@
             <!-- Password Tab End -->
 
             <!-- Plan Tab Start -->
-            <div class="tab-pane fade" id="pills-plan" role="tabpanel" aria-labelledby="pills-plan-tab" tabindex="0">
+            {{-- <div class="tab-pane fade" id="pills-plan" role="tabpanel" aria-labelledby="pills-plan-tab" tabindex="0">
                 <div class="card mt-24">
                     <div class="card-header border-bottom">
                         <h4 class="mb-4">Pricing Breakdown</h4>
@@ -475,7 +475,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Plan Tab End -->
 
             <!-- Billing Tab Start -->

@@ -1,3 +1,5 @@
+@props(['user'])
+
 <aside class="sidebar">
     <!-- sidebar close btn -->
     <button type="button"
@@ -7,101 +9,104 @@
 
     <a href="{{ route('siswa-dashboard.index') }}"
         class="sidebar__logo text-center p-20 position-sticky inset-block-start-0 bg-white w-100 z-1 pb-10">
-        <img src={{ asset("img/logo/logo.png") }} alt="EEC Logo" class="sm:w-80 sm:h-60 lg:w-100 lg:h-100 md:w-100 md:h-auto">
+        <img src={{ asset('img/logo/logo.png') }} alt="EEC Logo"
+            class="sm:w-80 sm:h-60 lg:w-100 lg:h-100 md:w-100 md:h-auto">
     </a>
 
     <div class="sidebar-menu-wrapper overflow-y-auto scroll-sm">
         <div class="p-20 pt-10">
-            <ul class="sidebar-menu">
-                <li class="sidebar-menu__item">
-                    <a href="{{ route('siswa-dashboard.index') }}" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-squares-four"></i></span>
-                        <span class="text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
-                        <span class="text">Kelas</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="assignment.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-clipboard-text"></i></span>
-                        <span class="text">Tugas</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="library.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-books"></i></span>
-                        <span class="text">Bank Soal</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="resources.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-bookmarks"></i></span>
-                        <span class="text">Kuis</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="message.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-chats-teardrop"></i></span>
-                        <span class="text">Kotak Pesan</span>
-                    </a>
-                </li>
-                {{-- <li class="sidebar-menu__item">
-                    <a href="analytics.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-chart-bar"></i></span>
-                        <span class="text">Analytics</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="event.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-calendar-dots"></i></span>
-                        <span class="text">Events</span>
-                    </a>
-                </li> --}}
+            @if ($user->hasRole('siswa'))
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu__item">
+                        <a href="{{ route('siswa-dashboard.index') }}"
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.index') ? 'active' : '' }}">
+                            <span class="icon"><i class="ph ph-squares-four"></i></span>
+                            <span class="text">Dashboard</span>
+                        </a>
+                    </li>
 
-                <li class="sidebar-menu__item">
-                    <a href="pricing-plan.html" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-coins"></i></span>
-                        <span class="text">Berlangganan</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-menu__item">
-                    <span
-                        class="text-gray-300 text-sm px-20 pt-20 fw-semibold border-top border-gray-100 d-block text-uppercase">Settings</span>
-                </li>
-                <li class="sidebar-menu__item">
-                    <a href="{{ route('siswa-dashboard.settings') }}" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-gear"></i></span>
-                        <span class="text">Pengaturan Akun</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-menu__item has-dropdown">
-                    <a href="javascript:void(0)" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-shield-check"></i></span>
-                        <span class="text">Autentikasi</span>
-                    </a>
-                    <!-- Submenu start -->
-                    <ul class="sidebar-submenu">
-                        <li class="sidebar-submenu__item">
-                            <a href="#" class="sidebar-submenu__link">Lupa Password</a>
+                    @if (optional($user->siswa)->kelas_id)
+                        <li class="sidebar-menu__item">
+                            <a href=""
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kelas*') ? 'active' : '' }}">
+                                <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+                                <span class="text">Kelas</span>
+                            </a>
                         </li>
-                        <li class="sidebar-submenu__item">
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="sidebar-submenu__link">Keluar</button>
-                            </form>
+                        <li class="sidebar-menu__item">
+                            <a href="assignment.html"
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.tugas*') ? 'active' : '' }}">
+                                <span class="icon"><i class="ph ph-clipboard-text"></i></span>
+                                <span class="text">Tugas</span>
+                            </a>
                         </li>
-                    </ul>
-                    <!-- Submenu End -->
-                </li>
+                        <li class="sidebar-menu__item">
+                            <a href="library.html"
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.bank-soal*') ? 'active' : '' }}">
+                                <span class="icon"><i class="ph ph-books"></i></span>
+                                <span class="text">Bank Soal</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu__item">
+                            <a href="resources.html"
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kuis*') ? 'active' : '' }}">
+                                <span class="icon"><i class="ph ph-bookmarks"></i></span>
+                                <span class="text">Kuis</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu__item">
+                            <a href="message.html"
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.pesan*') ? 'active' : '' }}">
+                                <span class="icon"><i class="ph ph-chats-teardrop"></i></span>
+                                <span class="text">Kotak Pesan</span>
+                            </a>
+                        </li>
+                    @endif
 
-            </ul>
+                    <li class="sidebar-menu__item">
+                        <a href="{{ route('siswa-dashboard.price') }}"
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.price') ? 'active' : '' }}">
+                            <span class="icon"><i class="ph ph-coins"></i></span>
+                            <span class="text">Berlangganan</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu__item">
+                        <span
+                            class="text-gray-300 text-sm px-20 pt-20 fw-semibold border-top border-gray-100 d-block text-uppercase">Settings</span>
+                    </li>
+                    <li class="sidebar-menu__item">
+                        <a href="{{ route('siswa-dashboard.settings') }}"
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.settings') ? 'active' : '' }}">
+                            <span class="icon"><i class="ph ph-gear"></i></span>
+                            <span class="text">Pengaturan Akun</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu__item has-dropdown">
+                        <a href="javascript:void(0)" class="sidebar-menu__link">
+                            <span class="icon"><i class="ph ph-shield-check"></i></span>
+                            <span class="text">Autentikasi</span>
+                        </a>
+                        <!-- Submenu start -->
+                        <ul class="sidebar-submenu">
+                            <li class="sidebar-submenu__item">
+                                <a href="#" class="sidebar-submenu__link">Lupa Password</a>
+                            </li>
+                            <li class="sidebar-submenu__item">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="sidebar-submenu__link">Keluar</button>
+                                </form>
+                            </li>
+                        </ul>
+                        <!-- Submenu End -->
+                    </li>
+
+                </ul>
+            @else
+                haha
+            @endif
         </div>
     </div>
-
 </aside>
