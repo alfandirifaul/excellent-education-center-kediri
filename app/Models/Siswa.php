@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Siswa extends Model
 {
@@ -23,4 +24,20 @@ class Siswa extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
+
+    public function nilai(): HasMany
+    {
+        return $this->hasMany(Nilai::class);
+    }
+
+    public function tugas(): HasMany
+    {
+        return $this->hasMany(Tugas::class);
+    }
+
+    public function subscriptionTransaction(): HasMany
+    {
+        return $this->hasMany(SubscriptionTransaction::class);
+    }
+
 }

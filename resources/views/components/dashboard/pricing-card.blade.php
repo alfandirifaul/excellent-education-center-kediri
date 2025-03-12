@@ -1,80 +1,225 @@
-<div class="card mt-24 overflow-hidden">
-    <div class="card mt-12">
-        <div class="card-header border-bottom flex flex-col items-center">
-            <h4 class="mb-4 font-bold text-2xl">Biaya Berlangganan</h4>
+@props([
+    'user',
+    'kelas',
+    'price',
+    'title',
+    'description',
+    ])
+
+@if (@optional($user->siswa)->kelas_id)
+    <div class="card mt-24">
+        <div class="card-header border-bottom">
+            <h4 class="mb-4 font-bold text-2xl">{{ $title }}</h4>
             <p class="text-gray-600 text-15">
-                Pilihan paket berlangganan dari Excellent Education Center yang dapat dipilih oleh siswa
+                {{ $description }}
             </p>
         </div>
         <div class="card-body">
-            <div class="flex justify-center mb-24 space-x-12 mt-[-20px]">
-                @foreach($kelas as $k)
-                    <button id="btn-{{ $k->id }}"
-                            class="btn btn-outline-main w-90 rounded-pill py-16 border-main-600 text-17
-                                   fw-medium mt-32 mx-2 transition-all duration-300"
-                            onclick="filterPrices({{ $k->id }})">
-                            {{ $k->nama }}
-                        </button>
-                @endforeach
-            </div>
-            <div class="row gy-4" id="price-list">
-                @foreach($kelas as $k)
-                <div class="col-md-6 price-item" data-kelas-id="{{ $k->id }}">
+            <div class="row gy-4">
+                {{-- Paket Bulanan --}}
+                <div class="col-md-6">
                     <div class="plan-item rounded-16 border border-gray-100 transition-2 position-relative">
-                        <img src="{{ asset($k->logo) }}" alt="" class="mb-24 rounded-full object-cover w-[20px] h-[20px] md:w-[50px] md:h-[50px] sm:w-[30px] sm:h-[30px]">
+                        <span class="text-2xl d-flex mb-16 text-main-600"><i class="ph ph-package"></i></span>
                         <h3 class="mb-4 font-bold text-xl">Paket Bulanan</h3>
                         <span class="text-gray-600">Perfect plan for students</span>
-                        <h2 class="h1 fw-medium text-4xl text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
-                            {{ formatRupiah($k->price->price_monthly) }}
+                        <h2 class="h1 fw-medium text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
+                            {{ formatRupiah($user->siswa->kelas->price->price_monthly) }}
                             <span class="text-md text-gray-600">/bulan</span>
                         </h2>
                         <ul>
                             <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
                                 <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
-                                Pembayaran Setiap Bulan
+                                Pembelajaran fleksibel
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Kuis interaktif
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Kurikulum terbaik
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Dukungan komunitas
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Sertifikat kelulusan
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Bank soal
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a href="#kelas"
+                        <a href="#"
                             class="btn btn-outline-main w-100 rounded-pill py-16 border-main-300 text-17 fw-medium mt-32">
                             Berlangganan Sekarang
                         </a>
                     </div>
                 </div>
 
-                <div class="col-md-6 price-item" data-kelas-id="{{ $k->id }}">
+                {{-- Paket Tahunan --}}
+                <div class="col-md-6">
                     <div class="plan-item rounded-16 border border-gray-100 transition-2 position-relative active">
-                        <img src="{{ asset($k->logo) }}" alt="" class="mb-24 rounded-full object-cover w-[20px] h-[20px] md:w-[50px] md:h-[50px] sm:w-[30px] sm:h-[30px]">
+                        <span
+                            class="plan-badge py-4 px-16 bg-main-600 text-white position-absolute inset-inline-end-0 inset-block-start-0 mt-8 text-15">
+                            Rekomendasi
+                        </span>
+                        <span class="text-2xl d-flex mb-16 text-main-600"><i class="ph ph-planet"></i></span>
                         <h3 class="mb-4 font-bold text-xl">Paket Tahunan</h3>
                         <span class="text-gray-600">For users who want to do more</span>
-                        <h2 class="h1 fw-medium text-4xl text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
-                            {{ formatRupiah($k->price->price_yearly) }} <span class="text-md text-gray-600">/tahun</span>
+                        <h2 class="h1 fw-medium text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
+                            {{ formatRupiah($user->siswa->kelas->price->price_yearly) }} <span
+                                class="text-md text-gray-600">/tahun</span>
                         </h2>
+
                         <ul>
                             <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
                                 <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
-                                Pembayaran Setiap Tahun Gratis 2 Bulan
+                                Pembelajaran fleksibel
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Kuis interaktif
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Kurikulum terbaik
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Dukungan komunitas
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Sertifikat kelulusan
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Bank soal
+                            </li>
+                            <li class="flex-align gap-8 text-gray-600 mb-lg-4">
+                                <span class="text-24 d-flex text-main-600"><i class="ph ph-check-circle"></i></span>
+                                Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a href="#kelas"
+                        <a href="#"
                             class="btn btn-main w-100 rounded-pill py-16 border-main-600 text-17 fw-medium mt-32">
                             Berlangganan Sekarang
                         </a>
                     </div>
                 </div>
-                @endforeach
 
                 <div class="col-12">
                     <label class="form-label mb-8 h6 mt-32">Syarat & Ketentuan</label>
                     <ul class="list-inside">
                         <li class="text-gray-600 mb-4">1. Pembayaran dilakukan melalui transfer bank</li>
-                        <li class="text-gray-600 mb-4">2. Sebelum pembayaran berhasil semua fitur tidak dapat di akses</li>
+                        <li class="text-gray-600 mb-4">2. Pembayaran harus dilakukan sebelum tanggal pembayaran</li>
                         <li class="text-gray-600 mb-4">3. Pembayaran yang sudah dilakukan tidak dapat dikembalikan</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
+@else
+    <div class="card mt-24 overflow-hidden">
+        <div class="card mt-12">
+            <div class="card-header border-bottom flex flex-col items-center">
+                <h4 class="mb-4 font-bold text-2xl">Biaya Berlangganan</h4>
+                <p class="text-gray-600 text-15">
+                    Pilihan paket berlangganan dari Excellent Education Center yang dapat dipilih oleh siswa
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="flex justify-center mb-24 space-x-12 mt-[-20px]">
+                    @foreach ($kelas as $k)
+                        <button id="btn-{{ $k->id }}"
+                            class="btn btn-outline-main w-90 rounded-pill py-16 border-main-600 text-17
+                                   fw-medium mt-32 mx-2 transition-all duration-300"
+                            onclick="filterPrices({{ $k->id }})">
+                            {{ $k->nama }}
+                        </button>
+                    @endforeach
+                </div>
+                <div class="row gy-4" id="price-list">
+                    @foreach ($kelas as $k)
+                        <div class="col-md-6 price-item" data-kelas-id="{{ $k->id }}">
+                            <div class="plan-item rounded-16 border border-gray-100 transition-2 position-relative">
+                                <img src="{{ asset($k->logo) }}" alt=""
+                                    class="mb-24 rounded-full object-cover w-[20px] h-[20px] md:w-[50px] md:h-[50px] sm:w-[30px] sm:h-[30px]">
+                                <h3 class="mb-4 font-bold text-xl">Paket Bulanan</h3>
+                                <span class="text-gray-600">Perfect plan for students</span>
+                                <h2
+                                    class="h1 fw-medium text-4xl text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
+                                    {{ formatRupiah($k->price->price_monthly) }}
+                                    <span class="text-md text-gray-600">/bulan</span>
+                                </h2>
+                                <ul>
+                                    <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                        <span class="text-24 d-flex text-main-600"><i
+                                                class="ph ph-check-circle"></i></span>
+                                        Pembayaran Setiap Bulan
+                                    </li>
+                                </ul>
+                                <a href="#kelas"
+                                    class="btn btn-outline-main w-100 rounded-pill py-16 border-main-300 text-17 fw-medium mt-32">
+                                    Berlangganan Sekarang
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 price-item" data-kelas-id="{{ $k->id }}">
+                            <div
+                                class="plan-item rounded-16 border border-gray-100 transition-2 position-relative active">
+                                <span
+                                    class="plan-badge py-4 px-16 bg-main-600 text-white position-absolute inset-inline-end-0 inset-block-start-0 mt-8 text-15">
+                                    Rekomendasi
+                                </span>
+                                <img src="{{ asset($k->logo) }}" alt=""
+                                    class="mb-24 rounded-full object-cover w-[20px] h-[20px] md:w-[50px] md:h-[50px] sm:w-[30px] sm:h-[30px]">
+                                <h3 class="mb-4 font-bold text-xl">Paket Tahunan</h3>
+                                <span class="text-gray-600">For users who want to do more</span>
+                                <h2
+                                    class="h1 fw-medium text-4xl text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
+                                    {{ formatRupiah($k->price->price_yearly) }} <span
+                                        class="text-md text-gray-600">/tahun</span>
+                                </h2>
+                                <ul>
+                                    <li class="flex-align gap-8 text-gray-600 mb-lg-4 mb-20">
+                                        <span class="text-24 d-flex text-main-600"><i
+                                                class="ph ph-check-circle"></i></span>
+                                        Pembayaran Setiap Tahun Gratis 2 Bulan
+                                    </li>
+                                </ul>
+                                <a href="#kelas"
+                                    class="btn btn-main w-100 rounded-pill py-16 border-main-600 text-17 fw-medium mt-32">
+                                    Berlangganan Sekarang
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="col-12">
+                        <label class="form-label mb-8 h6 mt-32">Syarat & Ketentuan</label>
+                        <ul class="list-inside">
+                            <li class="text-gray-600 mb-4">1. Pembayaran dilakukan melalui transfer bank</li>
+                            <li class="text-gray-600 mb-4">2. Sebelum pembayaran berhasil semua fitur tidak dapat di
+                                akses
+                            </li>
+                            <li class="text-gray-600 mb-4">3. Pembayaran yang sudah dilakukan tidak dapat dikembalikan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

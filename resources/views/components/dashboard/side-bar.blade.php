@@ -19,44 +19,44 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu__item">
                         <a href="{{ route('siswa-dashboard.index') }}"
-                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.index') ? 'active' : '' }}">
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.index') ? 'activePage' : '' }}">
                             <span class="icon"><i class="ph ph-squares-four"></i></span>
                             <span class="text">Dashboard</span>
                         </a>
                     </li>
 
-                    @if (optional($user->siswa)->kelas_id)
+                    @if (optional($user->siswa)->kelas_id && $user->hasActiveSubscription())
                         <li class="sidebar-menu__item">
                             <a href=""
-                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kelas*') ? 'active' : '' }}">
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kelas*') ? 'activePage' : '' }}">
                                 <span class="icon"><i class="ph ph-graduation-cap"></i></span>
                                 <span class="text">Kelas</span>
                             </a>
                         </li>
                         <li class="sidebar-menu__item">
                             <a href="assignment.html"
-                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.tugas*') ? 'active' : '' }}">
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.tugas*') ? 'activePage' : '' }}">
                                 <span class="icon"><i class="ph ph-clipboard-text"></i></span>
                                 <span class="text">Tugas</span>
                             </a>
                         </li>
                         <li class="sidebar-menu__item">
                             <a href="library.html"
-                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.bank-soal*') ? 'active' : '' }}">
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.bank-soal*') ? 'activePage' : '' }}">
                                 <span class="icon"><i class="ph ph-books"></i></span>
                                 <span class="text">Bank Soal</span>
                             </a>
                         </li>
                         <li class="sidebar-menu__item">
                             <a href="resources.html"
-                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kuis*') ? 'active' : '' }}">
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.kuis*') ? 'activePage' : '' }}">
                                 <span class="icon"><i class="ph ph-bookmarks"></i></span>
                                 <span class="text">Kuis</span>
                             </a>
                         </li>
                         <li class="sidebar-menu__item">
                             <a href="message.html"
-                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.pesan*') ? 'active' : '' }}">
+                                class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.pesan*') ? 'activePage' : '' }}">
                                 <span class="icon"><i class="ph ph-chats-teardrop"></i></span>
                                 <span class="text">Kotak Pesan</span>
                             </a>
@@ -65,7 +65,7 @@
 
                     <li class="sidebar-menu__item">
                         <a href="{{ route('siswa-dashboard.price') }}"
-                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.price') ? 'active' : '' }}">
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.price') ? 'activePage' : '' }}">
                             <span class="icon"><i class="ph ph-coins"></i></span>
                             <span class="text">Berlangganan</span>
                         </a>
@@ -77,7 +77,7 @@
                     </li>
                     <li class="sidebar-menu__item">
                         <a href="{{ route('siswa-dashboard.settings') }}"
-                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.settings') ? 'active' : '' }}">
+                            class="sidebar-menu__link {{ request()->routeIs('siswa-dashboard.settings') ? 'activePage' : '' }}">
                             <span class="icon"><i class="ph ph-gear"></i></span>
                             <span class="text">Pengaturan Akun</span>
                         </a>
@@ -91,7 +91,7 @@
                         <!-- Submenu start -->
                         <ul class="sidebar-submenu">
                             <li class="sidebar-submenu__item">
-                                <a href="#" class="sidebar-submenu__link">Lupa Password</a>
+                                <a href="{{ route('password.request') }}" class="sidebar-submenu__link">Lupa Password</a>
                             </li>
                             <li class="sidebar-submenu__item">
                                 <form action="{{ route('logout') }}" method="POST">

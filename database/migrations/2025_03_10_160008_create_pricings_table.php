@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->bigInteger('price_monthly');
             $table->bigInteger('price_yearly');
+            $table->enum('payment_type', ['monthly', 'yearly']);
 
             $table->timestamps();
         });

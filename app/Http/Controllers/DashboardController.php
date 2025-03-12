@@ -28,7 +28,34 @@ class DashboardController extends Controller
         }
     }
 
-    public function settings()
+    public function setKelasSiswaDashboard(Request $request, User $user)
+    {
+        if($user->hasRole('siswa')) {
+            $validate = $request->validate([
+                'kelas_id' => 'required|exists:kelas,id'
+            ]);
+
+            DB::transaction(function () use ($validate, $user) {
+                $siswa = Siswa::firstWhere('user_id', $user->id);
+
+                if($siswa) {
+                    $siswa->update($validate);
+                }
+                else {
+                    Siswa::create([
+                        'user_id' => $user->id,
+                        'kelas_id' => $validate['kelas_id'],
+                        'nama' => $user->name,
+                    ]);
+                }
+            });
+
+            return redirect()->route('siswa-dashboard.index')
+                ->with('success', 'Kelas berhasil diatur');
+        }
+    }
+
+    public function settingsSiswa()
     {
         $user = Auth::user();
         $kelas = Kelas::all();
