@@ -26,7 +26,7 @@
                         <div class="flex flex-col flex-shrink-0 w-[200px]">
                             <p class="text-slate-500 text-sm">Langganan Berakhir</p>
                             <h3 class="text-indigo-950 text-xl font-bold">
-                                {{ $std->subscription_transaction->expired_at ?? 'Tidak Aktif' }}</h3>
+                                {{ $std->getEndDateSubscription()->timezone('Asia/Jakarta')->locale('id')->isoFormat('DD MMMM YYYY') }}</h3>
                         </div>
                         <div class="flex flex-row items-center gap-x-3 flex-shrink-0 w-[200px]">
                             <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">

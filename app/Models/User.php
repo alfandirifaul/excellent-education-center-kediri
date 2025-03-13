@@ -22,24 +22,14 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'photo',
-        'phone',
-        'address',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'photo', 'phone', 'address'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * Get the attributes that should be cast.
@@ -86,10 +76,7 @@ class User extends Authenticatable
 
     public function hasActiveSubscription()
     {
-        $latestSubscription = $this->subscriptionTransactions()
-            ->where('payment_status', true)
-            ->latest('updated_at')
-            ->first();
+        $latestSubscription = $this->subscriptionTransactions()->where('payment_status', true)->latest('updated_at')->first();
 
         $subcrptionEndDate = '';
 
@@ -110,9 +97,23 @@ class User extends Authenticatable
         return Carbon::now()->lessThanOrEqualTo($subcrptionEndDate);
     }
 
+    public function getEndDateSubscription()
+    {
+        $latestSubscription = $this->subscriptionTransactions()->where('payment_status', true)->latest('updated_at')->first();
+
+        if (!$latestSubscription) {
+            return null;
+        }
+
+        if ($latestSubscription->payment_type == 'bulanan') {
+            return Carbon::parse($latestSubscription->payment_start_date)->addMonth(1);
+        } else {
+            return Carbon::parse($latestSubscription->payment_start_date)->addYear(1);
+        }
+    }
+
     public function getImgUrl()
     {
         return $this->photo ? asset('storage/' . $this->photo) : asset('img/logo/user-placeholder.png');
     }
-
 }
