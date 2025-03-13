@@ -270,7 +270,7 @@
                 transaction_id: '{{ $orderId }}',
                 payment_type: result.payment_type || 'unknown',
                 payment_status: status,
-                payment_amount: {{ $price }},
+                payment_amount: '{{ $price }}',
                 type: '{{ $type }}'
             };
 
