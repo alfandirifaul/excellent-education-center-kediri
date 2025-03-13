@@ -121,13 +121,24 @@
                     </div>
                 </div>
 
-                <div class="col-12">
-                    <label class="form-label mb-8 h6 mt-32">Syarat & Ketentuan</label>
-                    <ul class="list-inside">
-                        <li class="text-gray-600 mb-4">1. Pembayaran dilakukan melalui transfer bank</li>
-                        <li class="text-gray-600 mb-4">2. Pembayaran harus dilakukan sebelum tanggal pembayaran</li>
-                        <li class="text-gray-600 mb-4">3. Pembayaran yang sudah dilakukan tidak dapat dikembalikan</li>
-                    </ul>
+                <div class="col-12 mt-12">
+                    <div class="bg-light p-24 border-start border-1 border-main-600 rounded-xl">
+                        <h5 class="mb-12 d-flex align-items-center font-bold text-md">
+                            <i class="ph ph-shield-check me-2 text-primary"></i>
+                            Kepercayaan Anda Adalah Prioritas Kami
+                        </h5>
+                        <p class="mb-3 text-muted text-start">
+                            Kami berkomitmen untuk memberikan layanan pendidikan terbaik dengan transparansi penuh.
+                            Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari Excellent Education Center.
+                        </p>
+                        <div class="d-flex align-items-center mt-12">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="btn btn-sm btn-outline-main d-flex align-items-center">
+                                <i class="ph ph-book-open me-1"></i>
+                                Baca Syarat & Ketentuan
+                            </a>
+                        </div>
+                    </div>
+                    <x-dashboard.syarat-ketentuan />
                 </div>
             </div>
         </div>
@@ -210,16 +221,24 @@
                         </div>
                     @endforeach
 
-                    <div class="col-12">
-                        <label class="form-label mb-8 h6 mt-32">Syarat & Ketentuan</label>
-                        <ul class="list-inside">
-                            <li class="text-gray-600 mb-4">1. Pembayaran dilakukan melalui transfer bank</li>
-                            <li class="text-gray-600 mb-4">2. Sebelum pembayaran berhasil semua fitur tidak dapat di
-                                akses
-                            </li>
-                            <li class="text-gray-600 mb-4">3. Pembayaran yang sudah dilakukan tidak dapat dikembalikan
-                            </li>
-                        </ul>
+                    <div class="col-12 mt-12">
+                        <div class="bg-light p-24 border-start border-1 border-main-600 rounded-xl">
+                            <h5 class="mb-12 d-flex align-items-center font-bold text-md">
+                                <i class="ph ph-shield-check me-2 text-primary"></i>
+                                Kepercayaan Anda Adalah Prioritas Kami
+                            </h5>
+                            <p class="mb-3 text-muted text-start">
+                                Kami berkomitmen untuk memberikan layanan pendidikan terbaik dengan transparansi penuh.
+                                Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari Excellent Education Center.
+                            </p>
+                            <div class="d-flex align-items-center mt-12">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="btn btn-sm btn-outline-main d-flex align-items-center">
+                                    <i class="ph ph-book-open me-1"></i>
+                                    Baca Syarat & Ketentuan
+                                </a>
+                            </div>
+                        </div>
+                        <x-dashboard.syarat-ketentuan />
                     </div>
                 </div>
             </div>
@@ -258,6 +277,8 @@
         activeButton.classList.add('btn-main');
         activeButton.classList.add('active-button');
     }
+
+
 </script>
 
 <style>
