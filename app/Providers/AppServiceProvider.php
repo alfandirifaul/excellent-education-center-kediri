@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Comment this line if you want to use localhost
         if (config('app.env') === 'local') {
             URL::forceScheme('https');
         }
