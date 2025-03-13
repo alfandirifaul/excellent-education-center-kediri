@@ -84,7 +84,7 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($latestSubscription->payment_type == 'monthly') {
+        if ($latestSubscription->payment_type == 'bulanan') {
             $subcrptionEndDate = Carbon::parse($latestSubscription->payment_start_date)->addMonth(1);
         } else {
             $subcrptionEndDate = Carbon::parse($latestSubscription->payment_start_date)->addYear(1);
