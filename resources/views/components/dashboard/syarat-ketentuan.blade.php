@@ -86,6 +86,7 @@
 
 <script>
     const termsCheckbox = document.getElementById('terms-checkbox');
+    // const payButton = document.getElementById('pay-button');
 
     // Enable/disable pay button based on checkbox
     if (termsCheckbox && payButton) {

@@ -55,12 +55,16 @@ Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth'])
     Route::post('/set-kelas/{user}', [DashboardController::class, 'setKelasSiswaDashboard'])
         ->middleware(['role:siswa'])
         ->name('set-kelas');
-    Route::get('/payment', [DashboardController::class, 'showPaymentPage'])
+
+    Route::get('/payment', [SubscriptionTransactionController::class, 'showPaymentPage'])
         ->middleware(['role:siswa'])
         ->name('payment');
-    Route::post('/payment/process', [DashboardController::class, 'processPayment'])
+    Route::post('/payment/process', [SubscriptionTransactionController::class, 'processPayment'])
         ->middleware(['role:siswa'])
         ->name('payment.process');
+    Route::post('/payment/finish', [SubscriptionTransactionController::class, 'store'])
+        ->middleware(['role:siswa'])
+        ->name('payment.store');
 });
 
 

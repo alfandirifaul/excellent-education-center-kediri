@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-
-    private function generateOrderId($id) {
-        return 'EEC-' . $id . '#' . now()->setTimezone('Asia/Jakarta')->format('dmY') . '-' . now()->setTimezone('Asia/Jakarta')->format('His') . '/' . time();
-    }
-
     public function index()
     {
         $user = Auth::user();
@@ -28,116 +23,6 @@ class DashboardController extends Controller
         if ($user->hasRole('siswa')) {
             return view('siswa-dashboard.index', compact('user', 'kelas', 'price'));
         } else {
-            return view('dashboard', compact('kelas'));
-        }
-    }
-
-    public function showPaymentPage(Request $request)
-    {
-        $user = Auth::user();
-
-        if ($user->hasRole('siswa')) {
-            $kelas = Kelas::find($request->kelas);
-            $price = $request->price;
-            $type = $request->type;
-
-            // Initialize Midtrans config
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-            \Midtrans\Config::$isProduction = false;
-            \Midtrans\Config::$isSanitized = true;
-            \Midtrans\Config::$is3ds = true;
-
-            $orderId = $this->generateOrderId($user->id);
-
-            $params = [
-                'transaction_details' => [
-                    'order_id' => $orderId,
-                    'gross_amount' => intval($price),
-                ],
-                'item_details' => [
-                    [
-                        'id' => $kelas->id,
-                        'price' => intval($price),
-                        'quantity' => 1,
-                        'name' => 'EEC ' . $kelas->nama . ' ' . $type,
-                    ],
-                ],
-                'customer_details' => [
-                    'first_name' => $user->name,
-                    'last_name' => '',
-                    'email' => $user->email,
-                    'phone' => $user->phone ?? '',
-                ],
-            ];
-
-            try {
-                // Get Snap Token
-                $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-                return view('siswa-dashboard.payment.index', compact('user', 'kelas', 'price', 'type', 'snapToken', 'orderId'));
-            } catch (\Exception $e) {
-                dd($e->getMessage());
-                return redirect()->back()->with('error', $e->getMessage());
-            }
-        } else {
-            $kelas = Kelas::all();
-            return view('dashboard', compact('kelas'));
-        }
-    }
-
-    public function processPayment(Request $request)
-    {
-        $user = Auth::user();
-
-        if ($user->hasRole('siswa')) {
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-            \Midtrans\Config::$isProduction = false;
-            \Midtrans\Config::$isSanitized = true;
-            \Midtrans\Config::$is3ds = true;
-
-            $orderId = $this->generateOrderId($user->id);
-
-            $params = [
-                'transaction_details' => [
-                    'order_id' => $orderId,
-                    'gross_amount' => intval($request->amount),
-                ],
-                'item_details' => [
-                    [
-                        'id' => $request->kelas_id,
-                        'price' => intval($request->amount),
-                        'quantity' => 1,
-                        'name' => 'EEC ' . ($user->siswa->kelas->nama ?? 'Course') . ' ' . $request->type,
-                    ],
-                ],
-                'customer_details' => [
-                    'first_name' => $user->name,
-                    'last_name' => '',
-                    'email' => $user->email,
-                    'phone' => $user->phone ?? '',
-                ],
-            ];
-
-            try {
-                // Get Snap Token
-                $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-                return response()->json([
-                    'success' => true,
-                    'snap_token' => $snapToken,
-                    'order_id' => $orderId,
-                ]);
-            } catch (\Exception $e) {
-                return response()->json(
-                    [
-                        'success' => false,
-                        'message' => $e->getMessage(),
-                    ],
-                    500,
-                );
-            }
-        } else {
-            $kelas = Kelas::all();
             return view('dashboard', compact('kelas'));
         }
     }

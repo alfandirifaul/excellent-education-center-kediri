@@ -9,15 +9,7 @@ class SubscriptionTransaction extends Model
 {
     protected $table = 'subscription_transactions';
 
-    protected $fillable = [
-        'user_id',
-        'payment_type',
-        'payment_status',
-        'expired_at',
-        'payment_amount',
-        'payment_token',
-        'payment_proof',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * Get the user associated with the subscription transaction.
