@@ -35,6 +35,8 @@
 
      <!-- Scripts -->
      @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+     @yield('head-scripts')
 </head>
 
 <body>
@@ -48,11 +50,9 @@
     <div class="side-overlay"></div>
     <!--==================== Sidebar Overlay End ====================-->
 
-
     <!-- ============================ Sidebar Start ============================ -->
     <x-dashboard.side-bar :user="$user"/>
     <!-- ============================ Sidebar End  ============================ -->
-
 
     <div class="dashboard-main-wrapper">
 

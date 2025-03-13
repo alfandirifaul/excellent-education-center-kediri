@@ -16,7 +16,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
                     <div class="item-card flex flex-col md:flex-row gap-y-10 justify-between md:items-center">
                         <div class="flex flex-row items-center gap-x-3 flex-shrink-0 w-[200px]">
-                            <img src="{{ $std->photo ? asset('storage/' . $std->photo) : asset('img/logo/user-placeholder.png') }}"
+                            <img src="{{ $std->photo ? asset('storage/' . $std->photo) : Avatar::create($std->name)->toBase64() }}"
                                 alt="" class="rounded-full object-cover w-[90px] h-[90px]">
                             <div class="flex flex-col">
                                 <h3 class="text-indigo-950 text-xl font-bold">{{ $std->name }}</h3>

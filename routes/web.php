@@ -21,6 +21,9 @@ use App\Http\Controllers\SubscriptionTransactionController;
 use App\Http\Controllers\TugasController;
 
 
+Route::get('/pay', [SubscriptionTransactionController::class, 'pay'])->name('pay'); // Testing Midtrans Payment Gateway
+
+
 Route::prefix('')->group(function () {
     Route::get('/', [FrontController::class, 'index'])->name('home');
     Route::get('/about', [FrontController::class, 'about'])->name('about');
@@ -28,7 +31,7 @@ Route::prefix('')->group(function () {
     Route::get('/price', [FrontController::class, 'price'])->name('price');
 });
 
-Route::get('/class', [SystemController::class, 'dashboardClass'])->name('class');
+// Route::get('/class', [SystemController::class, 'dashboardClass'])->name('class');
 
 
 Route::get('/dashboard', function () {
@@ -36,7 +39,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'role:guru|owner'])->name('dashboard');
 
 
-Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth', 'role:siswa'])->group(function(){
+Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth'])->group(function(){
     Route::get('/', [DashboardController::class, 'index'])
         ->middleware(['role:siswa'])
         ->name('index');
@@ -52,8 +55,14 @@ Route::prefix('siswa-dashboard')->name('siswa-dashboard.')->middleware(['auth', 
     Route::post('/set-kelas/{user}', [DashboardController::class, 'setKelasSiswaDashboard'])
         ->middleware(['role:siswa'])
         ->name('set-kelas');
-
+    Route::get('/payment', [DashboardController::class, 'showPaymentPage'])
+        ->middleware(['role:siswa'])
+        ->name('payment');
+    Route::post('/payment/process', [DashboardController::class, 'processPayment'])
+        ->middleware(['role:siswa'])
+        ->name('payment.process');
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

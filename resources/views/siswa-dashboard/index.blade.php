@@ -1,4 +1,9 @@
 @extends('layouts.siswa-dashboard')
+
+@section('head-scripts')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+@endsection
+
 @section('content')
     <!-- ============================ Dashboard Body Start ============================ -->
 
@@ -11,7 +16,7 @@
                         class="position-absolute inset-block-start-0 inset-inline-start-0 z-n1 w-100 h-100 opacity-6">
                     <div class="row gy-4">
                         <div class="col-sm-7">
-                            <div class="grettings-box__content py-xl-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="grettings-box__content py-xl-4 d-flex flex-column h-100 justify-content-between ml-4">
                                 <div>
                                     <h1 class="text-white mt-24 mb-0 font-bold text-4xl">Halo, {{ $user->name }}! </h1>
                                 </div>
@@ -23,6 +28,7 @@
 
                                 <div>
                                     <h1 class="text-white mb-0 font-bold text-xl">Excellent Education Center</h1>
+                                    <p class="text-sm fw-light text-white">Education is a key</p>
                                 </div>
                             </div>
                         </div>
@@ -40,13 +46,8 @@
                 @if ($user->siswa && $user->siswa->kelas_id != null)
                     {{-- User has kelas but no active subscription: Show pricing alert --}}
                     @if (!$user->hasActiveSubscription())
-                        <x-dashboard.pricing-card
-                            :user="$user"
-                            :kelas="$kelas"
-                            :price="$price"
-                            :title="'Paket Berlangganan'"
-                            :description="'Pilih paket berlangganan untuk mengakses semua fitur di Excellent Education Center'"
-                        />
+                        <x-dashboard.pricing-card :user="$user" :kelas="$kelas" :price="$price" :title="'Paket Berlangganan'"
+                            :description="'Pilih paket berlangganan untuk mengakses semua fitur di Excellent Education Center'" />
                     @else
                         {{-- User has both kelas and subscription: Show normal content --}}
                         <x-dashboard.main-dashboard />

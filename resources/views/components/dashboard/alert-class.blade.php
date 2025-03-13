@@ -43,8 +43,8 @@
 
                 <div class="justify-center mt-8">
                     <button type="submit" id="submitButton"
-                        class="px-8 py-8 w-full mt-32 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full transition-colors duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
-                        Submit
+                        class="px-8 py-8 w-full mt-32 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full transition-colors duration-300 shadow-md hover:shadow-lg transform">
+                        Pilih
                     </button>
                 </div>
             </div>

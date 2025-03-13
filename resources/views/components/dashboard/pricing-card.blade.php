@@ -1,10 +1,4 @@
-@props([
-    'user',
-    'kelas',
-    'price',
-    'title',
-    'description',
-    ])
+@props(['user', 'kelas', 'price', 'title', 'description'])
 
 @if (@optional($user->siswa)->kelas_id)
     <div class="card mt-24">
@@ -21,7 +15,7 @@
                     <div class="plan-item rounded-16 border border-gray-100 transition-2 position-relative">
                         <span class="text-2xl d-flex mb-16 text-main-600"><i class="ph ph-package"></i></span>
                         <h3 class="mb-4 font-bold text-xl">Paket Bulanan</h3>
-                        <span class="text-gray-600">Perfect plan for students</span>
+                        <span class="text-gray-600">Pembayaran Setiap Bulan</span>
                         <h2 class="h1 fw-medium text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
                             {{ formatRupiah($user->siswa->kelas->price->price_monthly) }}
                             <span class="text-md text-gray-600">/bulan</span>
@@ -56,7 +50,13 @@
                                 Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a href="#"
+                        <a
+                            href={{ route('siswa-dashboard.payment', [
+                                    'user' => $user,
+                                    'kelas' => $user->siswa->kelas,
+                                    'price' => $user->siswa->kelas->price->price_monthly,
+                                    'type' => 'monthly',
+                                ])}}
                             class="btn btn-outline-main w-100 rounded-pill py-16 border-main-300 text-17 fw-medium mt-32">
                             Berlangganan Sekarang
                         </a>
@@ -72,7 +72,7 @@
                         </span>
                         <span class="text-2xl d-flex mb-16 text-main-600"><i class="ph ph-planet"></i></span>
                         <h3 class="mb-4 font-bold text-xl">Paket Tahunan</h3>
-                        <span class="text-gray-600">For users who want to do more</span>
+                        <span class="text-gray-600">Lebih Tenang Lebih Hemat</span>
                         <h2 class="h1 fw-medium text-main mb-32 mt-16 pb-32 border-bottom border-gray-100 d-flex gap-4">
                             {{ formatRupiah($user->siswa->kelas->price->price_yearly) }} <span
                                 class="text-md text-gray-600">/tahun</span>
@@ -108,7 +108,13 @@
                                 Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a href="#"
+                        <a
+                            href="{{ route('siswa-dashboard.payment', [
+                                'user' => $user,
+                                'kelas' => $user->siswa->kelas,
+                                'price' => $user->siswa->kelas->price->price_yearly,
+                                'type' => 'yearly',
+                            ])}}"
                             class="btn btn-main w-100 rounded-pill py-16 border-main-600 text-17 fw-medium mt-32">
                             Berlangganan Sekarang
                         </a>
