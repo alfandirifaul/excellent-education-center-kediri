@@ -112,6 +112,18 @@ class User extends Authenticatable
         }
     }
 
+    public function getRemainingDaySubscription()
+    {
+        $endDate = $this->getEndDateSubscription();
+        $now = Carbon::now();
+
+        if (!$endDate) {
+            return null;
+        }
+
+        return intval($now->diffInDays($endDate));
+    }
+
     public function getImgUrl()
     {
         return $this->photo ? asset('storage/' . $this->photo) : asset('img/logo/user-placeholder.png');

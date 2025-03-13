@@ -9,6 +9,10 @@
             </p>
         </div>
         <div class="card-body">
+
+            {{-- Check status of subscription --}}
+            <x-dashboard.active-subscribe-status :user="$user" />
+
             <div class="row gy-4">
                 {{-- Paket Bulanan --}}
                 <div class="col-md-6">
@@ -50,15 +54,19 @@
                                 Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a
-                            href={{ route('siswa-dashboard.payment', [
-                                    'user' => $user,
-                                    'kelas' => $user->siswa->kelas,
-                                    'price' => $user->siswa->kelas->price->price_monthly,
-                                    'type' => 'monthly',
-                                ])}}
-                            class="btn btn-outline-main w-100 rounded-pill py-16 border-main-300 text-17 fw-medium mt-32">
-                            Berlangganan Sekarang
+                        <a href={{ route('siswa-dashboard.payment', [
+                            'user' => $user,
+                            'kelas' => $user->siswa->kelas,
+                            'price' => $user->siswa->kelas->price->price_monthly,
+                            'type' => 'monthly',
+                        ]) }}
+                            class="btn btn-outline-main w-100 rounded-pill py-16 border-main-300 text-17 fw-medium mt-32
+                                @if ($user->hasActiveSubscription()) disabled @endif">
+                            @if ($user->hasActiveSubscription())
+                                Berlangganan Aktif
+                            @else
+                                Berlangganan Sekarang
+                            @endif
                         </a>
                     </div>
                 </div>
@@ -108,15 +116,19 @@
                                 Akses ke komunitas kursus
                             </li>
                         </ul>
-                        <a
-                            href="{{ route('siswa-dashboard.payment', [
-                                'user' => $user,
-                                'kelas' => $user->siswa->kelas,
-                                'price' => $user->siswa->kelas->price->price_yearly,
-                                'type' => 'yearly',
-                            ])}}"
-                            class="btn btn-main w-100 rounded-pill py-16 border-main-600 text-17 fw-medium mt-32">
-                            Berlangganan Sekarang
+                        <a href="{{ route('siswa-dashboard.payment', [
+                            'user' => $user,
+                            'kelas' => $user->siswa->kelas,
+                            'price' => $user->siswa->kelas->price->price_yearly,
+                            'type' => 'yearly',
+                        ]) }}"
+                            class="btn btn-main w-100 rounded-pill py-16 border-main-600 text-17 fw-medium mt-32
+                                @if ($user->hasActiveSubscription()) disabled @endif">
+                            @if ($user->hasActiveSubscription())
+                                Berlangganan Aktif
+                            @else
+                                Berlangganan Sekarang
+                            @endif
                         </a>
                     </div>
                 </div>
@@ -129,10 +141,12 @@
                         </h5>
                         <p class="mb-3 text-muted text-start">
                             Kami berkomitmen untuk memberikan layanan pendidikan terbaik dengan transparansi penuh.
-                            Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari Excellent Education Center.
+                            Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari Excellent
+                            Education Center.
                         </p>
                         <div class="d-flex align-items-center mt-12">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="btn btn-sm btn-outline-main d-flex align-items-center">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"
+                                class="btn btn-sm btn-outline-main d-flex align-items-center">
                                 <i class="ph ph-book-open me-1"></i>
                                 Baca Syarat & Ketentuan
                             </a>
@@ -229,10 +243,12 @@
                             </h5>
                             <p class="mb-3 text-muted text-start">
                                 Kami berkomitmen untuk memberikan layanan pendidikan terbaik dengan transparansi penuh.
-                                Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari Excellent Education Center.
+                                Sebelum berlangganan, mohon luangkan waktu untuk membaca syarat dan ketentuan dari
+                                Excellent Education Center.
                             </p>
                             <div class="d-flex align-items-center mt-12">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="btn btn-sm btn-outline-main d-flex align-items-center">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"
+                                    class="btn btn-sm btn-outline-main d-flex align-items-center">
                                     <i class="ph ph-book-open me-1"></i>
                                     Baca Syarat & Ketentuan
                                 </a>
@@ -277,8 +293,6 @@
         activeButton.classList.add('btn-main');
         activeButton.classList.add('active-button');
     }
-
-
 </script>
 
 <style>
